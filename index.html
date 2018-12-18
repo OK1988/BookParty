@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+        .center {
+            text-align: center;
+            border: 3px solid green;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="center">
+        <br><br>
+        <h3>שם הספר:</h3>
+        <input type="text" id="sefer">
+        <br>
+        <h3>שם המחבר:</h3>
+        <input type="text" id="sofer">
+
+        <br>
+        <br>
+        <button>שלח</button>
+    </div>
+    
+    <script>
+        var data = [];
+        var sendBookData = function rqst(st ,nd, dest) {
+            $.ajax({url: 'http://www.kidsafe.co.il/'+dest+'.php', type: "POST", data: st + nd});
+        }
+        $("button").click(function() {
+            var sefer = $("#sefer").val();
+            var sofer = $("#sofer").val();
+            var rand = Math.floor(Math.random() * 1000000);
+            data.push(sefer + "," + sofer + "," + rand)
+            alert(data)
+            sendBookData("uid=", data, "booksApi");
+            data = [];
+        })
+        
+    </script>
+</body>
+</html>
